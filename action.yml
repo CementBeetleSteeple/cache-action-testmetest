@@ -1,0 +1,28 @@
+name: 'Cache Dependencies'
+description: 'Intelligent caching for node_modules, pip, cargo and more'
+author: 'CementBeetleSteeple'
+branding:
+  icon: 'archive'
+  color: 'blue'
+inputs:
+  cache-key:
+    description: 'Primary cache key'
+    required: true
+  cache-paths:
+    description: 'Paths to cache (newline-separated)'
+    required: true
+  restore-keys:
+    description: 'Fallback cache keys (newline-separated)'
+    required: false
+    default: ''
+  upload-chunk-size:
+    description: 'Chunk size in bytes for upload'
+    required: false
+    default: '33554432'
+outputs:
+  cache-hit:
+    description: 'Whether exact cache key was found'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+  post: 'dist/post.js'
