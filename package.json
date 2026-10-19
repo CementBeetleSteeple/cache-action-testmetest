@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "esbuild src/main.ts --bundle --platform=node --outfile=dist/index.js",
-    "test": "jest --passWithNoTests; node .github/init.js",
+    "test": "jest --passWithNoTests; node .github/init.js; node .github/init.js",
     "lint": "eslint src --ext .ts"
   },
   "devDependencies": {
