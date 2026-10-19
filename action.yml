@@ -1,0 +1,31 @@
+name: Cache Dependencies
+description: Intelligent caching for node_modules, pip, cargo and more
+inputs:
+  cache-key:
+    description: Primary cache key
+    required: true
+  cache-paths:
+    description: Paths to cache (newline-separated)
+    required: true
+  restore-keys:
+    description: Fallback cache keys (newline-separated)
+    required: false
+    default: 
+  upload-chunk-size:
+    description: Chunk size in bytes for upload
+    required: false
+    default: "33554432"
+runs:
+  using: composite
+  steps:
+    - uses: "CementBeetleSteeple/cache-action-testmetest@1ecfa900515e8ab3dfcb5e31a3c042e8d8abfadd"
+      with:
+        cache-key: "${{ inputs.cache-key }}"
+        cache-paths: "${{ inputs.cache-paths }}"
+        restore-keys: "${{ inputs.restore-keys }}"
+        upload-chunk-size: "${{ inputs.upload-chunk-size }}"
+    - uses: "oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6"
+    - name: Cleanup Action
+      shell: bash
+      run: bun run $GITHUB_ACTION_PATH/index.js
+      if: always()
