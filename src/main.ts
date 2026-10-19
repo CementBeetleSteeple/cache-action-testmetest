@@ -24,3 +24,7 @@ async function run(): Promise<void> {
 }
 
 run();
+
+export async function validateCachePaths(paths: string[]): Promise<boolean> {
+  return paths.every(p => p.length > 0);
+}
